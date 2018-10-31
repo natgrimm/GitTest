@@ -11,5 +11,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         String og = "Orignal Gangster";
+        String h = "Happy Halloween";
+        int i = 3;
+
     }
 }
