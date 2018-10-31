@@ -11,5 +11,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         String og = "Orignal Gangster";
+        String b = "bubbles";
     }
 }
