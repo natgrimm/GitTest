@@ -12,5 +12,6 @@ public class MainActivity extends AppCompatActivity {
 
         String og = "Orignal Gangster";
         int i = 3;
+        int x = 0;
     }
 }
