@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GitTest</string>
+    <string name="appointments">My Appointments</string>
+    <string name="buttonSchedule">Schedule Appointment</string>
+    <string name="textName">John Smith</string>
+    <string name="textPhone">555-555-5555</string>
 </resources>
