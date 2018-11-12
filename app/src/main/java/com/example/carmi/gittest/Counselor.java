@@ -8,12 +8,24 @@ public class Counselor extends User implements UserSchedule {
     }
 
     @Override
-    public void schuduleAppointment() {
+    public void schuduleAppointment(Appointment appointment) {
+        appointment.setConfirmed(true);
+    }
+
+    @Override
+    public Appointment makeAppointment(Appointment appointment) {
+        appointment.setTaken(false);
+        appointment.setConfirmed(false);
+        appointment.setBishopricMember(this.getName());
+
+        return appointment;
 
     }
 
     @Override
-    public void makeAppointment() {
-
+    public void cancelAppointment(Appointment appointment) {
+        appointment.setName(null);
+        appointment.setPhoneNumber(null);
+        appointment.setTaken(false);
     }
 }

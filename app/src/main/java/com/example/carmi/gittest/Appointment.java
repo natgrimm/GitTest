@@ -9,12 +9,21 @@ public class Appointment {
     private int year;
     private double time;
     private boolean taken;
+    private boolean confirmed;
 
     public Appointment(int day, int month, int year, double time) {
         this.day = day;
         this.month = month;
         this.year = year;
         this.time = time;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
     }
 
     public String getName() {

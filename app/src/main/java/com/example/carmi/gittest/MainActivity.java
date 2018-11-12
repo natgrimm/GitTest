@@ -3,6 +3,9 @@ package com.example.carmi.gittest;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -10,10 +13,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String og = "Orignal Gangster";
-        int i = 3;
-        int x = 0;
-        int e = 6;
+        List<Appointment> schedule = new LinkedList<Appointment>();
 
     }
 }
