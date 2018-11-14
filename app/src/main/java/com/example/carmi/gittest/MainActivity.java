@@ -14,6 +14,5 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         List<Appointment> schedule = new LinkedList<Appointment>();
-
     }
 }
