@@ -6,7 +6,7 @@ public interface UserSchedule {
 
     public void schuduleAppointment(Appointment appointment);
 
-    public Appointment makeAppointment(Appointment appointment);
+    public void makeAppointment(Appointment appointment);
 
     public void cancelAppointment (Appointment appointment);
 }

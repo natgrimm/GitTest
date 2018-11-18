@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        List<Appointment> schedule = new LinkedList<Appointment>();
+        
     }
 
     @Override
