@@ -1,10 +1,12 @@
 package com.example.carmi.gittest;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -12,6 +14,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String EXTRA_MESSAGE = "com.example.GitTest.MESSAGE";
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
                 phoneTextBox.setText(phone);
             }
         }
-
 
     }
 
@@ -75,11 +78,17 @@ public class MainActivity extends AppCompatActivity {
         String phoneNumber = phone.toString();
 
         // Send this information off to be checked...
+        if (userName == " ") {
+            Log.w(TAG, ("User name was left empty."));
+        }
+        if (phoneNumber == " ") {
+            Log.w(TAG, ("Phone number was left empty."));
+        }
 
-        /* We want something like this if we want the schedule to pop up in a new activity
-        Intent intent = new Intent(this, ... .class);
-        intent.putExtra(EXTRA_MESSAGE, ... );
+        // Create an intent containing the username and phone number and start the Calendar Activity
+        String intentMessage = userName + " " + phoneNumber;
+        Intent intent = new Intent(this, CalendarActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, intentMessage);
         startActivity(intent);
-        */
     }
 }
