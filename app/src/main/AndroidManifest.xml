@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"
-                  android:windowSoftInputMode="adjustPan">
+                  android:windowSoftInputMode="adjustPan"
+                  android:clickable="true"
+                  android:focusableInTouchMode="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

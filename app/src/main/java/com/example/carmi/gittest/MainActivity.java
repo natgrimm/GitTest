@@ -1,18 +1,15 @@
 package com.example.carmi.gittest;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // If there are any Shared Preferences, load them into their respective text-boxes
+        // First, find the needed text-boxes
+        EditText nameTextBox = findViewById(R.id.textName);
+        EditText phoneTextBox = findViewById(R.id.textPhone);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (preferences != null) {
             // See if there is a name and phone number saved into preferences
@@ -30,16 +30,13 @@ public class MainActivity extends AppCompatActivity {
 
             // Check if they are valid, and if so, find and set the correct text-box to that value
             if (name != null) {
-                EditText tb = findViewById(R.id.textName);
-                tb.setText(name);
+                nameTextBox.setText(name);
             }
 
             if (phone != null) {
-                EditText textBox = findViewById(R.id.textPhone);
-                textBox.setText(phone);
+                phoneTextBox.setText(phone);
             }
         }
-
 
         List<Appointment> schedule = new LinkedList<Appointment>();
     }
