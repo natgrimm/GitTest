@@ -9,12 +9,15 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MainActivity extends AppCompatActivity {
+
+    List<Appointment> appointmentList = new ArrayList<Appointment>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,5 +87,12 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_MESSAGE, ... );
         startActivity(intent);
         */
+        this.goToCalendar(v);
+
+    }
+
+    public void goToCalendar (View view){
+        Intent intent = new Intent (this, CalendarActivity.class);
+        startActivity(intent);
     }
 }
