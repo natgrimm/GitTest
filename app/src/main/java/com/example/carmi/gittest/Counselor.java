@@ -13,12 +13,11 @@ public class Counselor extends User implements UserSchedule {
     }
 
     @Override
-    public Appointment makeAppointment(Appointment appointment) {
+    public void makeAppointment(Appointment appointment) {
         appointment.setTaken(false);
         appointment.setConfirmed(false);
         appointment.setBishopricMember(this.getName());
-
-        return appointment;
+        appointments.add(appointment);
 
     }
 

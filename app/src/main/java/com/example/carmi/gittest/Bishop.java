@@ -12,16 +12,17 @@ public class Bishop extends User implements UserSchedule {
 
     @Override
     public void schuduleAppointment(Appointment appointment) {
+
         appointment.setConfirmed(true);
     }
 
     @Override
-    public Appointment makeAppointment(Appointment appointment) {
+    public void makeAppointment(Appointment appointment) {
         appointment.setTaken(false);
         appointment.setConfirmed(false);
         appointment.setBishopricMember(this.getName());
+        appointments.add(appointment);
 
-        return appointment;
     }
 
     @Override
