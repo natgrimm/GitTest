@@ -78,10 +78,10 @@ public class MainActivity extends AppCompatActivity {
         String phoneNumber = phone.toString();
 
         // Send this information off to be checked...
-        if (userName == " ") {
+        if (userName.equals(" ")) {
             Log.w(TAG, ("User name was left empty."));
         }
-        if (phoneNumber == " ") {
+        if (phoneNumber.equals(" ")) {
             Log.w(TAG, ("Phone number was left empty."));
         }
 
@@ -90,5 +90,19 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CalendarActivity.class);
         intent.putExtra(EXTRA_MESSAGE, intentMessage);
         startActivity(intent);
+    }
+
+    // TEMPORARY
+    // here for now to help us see what bishop, counselor, and secretary need to see
+    public void onBishopViewClick(View v) {
+
+    }
+
+    public void onCounselorViewClick(View v) {
+
+    }
+
+    public void onSecretaryViewClick(View v) {
+
     }
 }
