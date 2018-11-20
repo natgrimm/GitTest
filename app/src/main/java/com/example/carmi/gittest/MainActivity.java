@@ -95,14 +95,53 @@ public class MainActivity extends AppCompatActivity {
     // TEMPORARY
     // here for now to help us see what bishop, counselor, and secretary need to see
     public void onBishopViewClick(View v) {
+        // not sure what exactly we need in these, but I'm going to have them include the name and
+        // number of the user
 
+        // Pull the information that the user put into the name and phone text-boxes
+        EditText name = findViewById(R.id.textName);
+        EditText phone = findViewById(R.id.textPhone);
+
+        // Change the information into a string that we can use.
+        String userName = name.toString();
+        String phoneNumber = phone.toString();
+
+        // Create an intent containing the username and phone number and start the Calendar Activity
+        String intentMessage = userName + " " + phoneNumber;
+        Intent intent = new Intent(this, CalendarActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, intentMessage);
+        startActivity(intent);
     }
 
     public void onCounselorViewClick(View v) {
+        // Pull the information that the user put into the name and phone text-boxes
+        EditText name = findViewById(R.id.textName);
+        EditText phone = findViewById(R.id.textPhone);
 
+        // Change the information into a string that we can use.
+        String userName = name.toString();
+        String phoneNumber = phone.toString();
+
+        // Create an intent containing the username and phone number and start the Calendar Activity
+        String intentMessage = userName + " " + phoneNumber;
+        Intent intent = new Intent(this, CalendarActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, intentMessage);
+        startActivity(intent);
     }
 
     public void onSecretaryViewClick(View v) {
+        // Pull the information that the user put into the name and phone text-boxes
+        EditText name = findViewById(R.id.textName);
+        EditText phone = findViewById(R.id.textPhone);
 
+        // Change the information into a string that we can use.
+        String userName = name.toString();
+        String phoneNumber = phone.toString();
+
+        // Create an intent containing the username and phone number and start the Calendar Activity
+        String intentMessage = userName + " " + phoneNumber;
+        Intent intent = new Intent(this, CalendarActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, intentMessage);
+        startActivity(intent);
     }
 }
