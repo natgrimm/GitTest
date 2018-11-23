@@ -1,11 +1,12 @@
 package com.example.carmi.gittest;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -13,9 +14,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
-
 public class MainActivity extends AppCompatActivity {
+    public static final String EXTRA_MESSAGE = "com.example.GitTest.MESSAGE";
+    private static final String TAG = "MainActivity";
 
     List<Appointment> appointmentList = new ArrayList<Appointment>();
 
@@ -25,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // If there are any Shared Preferences, load them into their respective text-boxes
+        // First, find the needed text-boxes
+        EditText nameTextBox = findViewById(R.id.textName);
+        EditText phoneTextBox = findViewById(R.id.textPhone);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (preferences != null) {
             // See if there is a name and phone number saved into preferences
@@ -33,18 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
             // Check if they are valid, and if so, find and set the correct text-box to that value
             if (name != null) {
-                EditText tb = findViewById(R.id.textName);
-                tb.setText(name);
+                nameTextBox.setText(name);
             }
 
             if (phone != null) {
-                EditText textBox = findViewById(R.id.textPhone);
-                textBox.setText(phone);
+                phoneTextBox.setText(phone);
             }
         }
 
-
-        
     }
 
     @Override
@@ -81,12 +81,71 @@ public class MainActivity extends AppCompatActivity {
         String phoneNumber = phone.toString();
 
         // Send this information off to be checked...
+        if (userName.equals(" ")) {
+            Log.w(TAG, ("User name was left empty."));
+        }
+        if (phoneNumber.equals(" ")) {
+            Log.w(TAG, ("Phone number was left empty."));
+        }
 
-        /* We want something like this if we want the schedule to pop up in a new activity
-        Intent intent = new Intent(this, ... .class);
-        intent.putExtra(EXTRA_MESSAGE, ... );
+        // Create an intent containing the username and phone number and start the Calendar Activity
+        String intentMessage = userName + " " + phoneNumber;
+        Intent intent = new Intent(this, CalendarActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, intentMessage);
         startActivity(intent);
-        */
+    }
+
+    // TEMPORARY
+    // here for now to help us see what bishop, counselor, and secretary need to see
+    public void onBishopViewClick(View v) {
+        // not sure what exactly we need in these, but I'm going to have them include the name and
+        // number of the user
+
+        // Pull the information that the user put into the name and phone text-boxes
+        EditText name = findViewById(R.id.textName);
+        EditText phone = findViewById(R.id.textPhone);
+
+        // Change the information into a string that we can use.
+        String userName = name.toString();
+        String phoneNumber = phone.toString();
+
+        // Create an intent containing the username and phone number and start the Calendar Activity
+        String intentMessage = userName + " " + phoneNumber;
+        Intent intent = new Intent(this, CalendarActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, intentMessage);
+        startActivity(intent);
+    }
+
+    public void onCounselorViewClick(View v) {
+        // Pull the information that the user put into the name and phone text-boxes
+        EditText name = findViewById(R.id.textName);
+        EditText phone = findViewById(R.id.textPhone);
+
+        // Change the information into a string that we can use.
+        String userName = name.toString();
+        String phoneNumber = phone.toString();
+
+        // Create an intent containing the username and phone number and start the Calendar Activity
+        String intentMessage = userName + " " + phoneNumber;
+        Intent intent = new Intent(this, CalendarActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, intentMessage);
+        startActivity(intent);
+    }
+
+    public void onSecretaryViewClick(View v) {
+        // Pull the information that the user put into the name and phone text-boxes
+        EditText name = findViewById(R.id.textName);
+        EditText phone = findViewById(R.id.textPhone);
+
+        // Change the information into a string that we can use.
+        String userName = name.toString();
+        String phoneNumber = phone.toString();
+
+        // Create an intent containing the username and phone number and start the Calendar Activity
+        String intentMessage = userName + " " + phoneNumber;
+        Intent intent = new Intent(this, CalendarActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, intentMessage);
+        startActivity(intent);
         this.goToCalendar(v);
 
     }

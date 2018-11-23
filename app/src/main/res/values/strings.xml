@@ -4,4 +4,7 @@
     <string name="buttonSchedule">Schedule Appointment</string>
     <string name="textName">John Smith</string>
     <string name="textPhone">555-555-5555</string>
+    <string name="buttonBishop">Bishop</string>
+    <string name="buttonCounselor">Counselor</string>
+    <string name="buttonSecretary">Secretary</string>
 </resources>
