@@ -1,5 +1,7 @@
 package com.example.carmi.gittest;
 
+import java.sql.Time;
+
 public class Appointment {
     private String name;
     private String phoneNumber;
@@ -7,11 +9,11 @@ public class Appointment {
     private int day;
     private int month;
     private int year;
-    private double time;
+    private Time time;
     private boolean taken;
     private boolean confirmed;
 
-    public Appointment(int day, int month, int year, double time) {
+    public Appointment(int day, int month, int year, Time time) {
         this.day = day;
         this.month = month;
         this.year = year;
@@ -74,11 +76,11 @@ public class Appointment {
         this.year = year;
     }
 
-    public double getTime() {
+    public Time getTime() {
         return time;
     }
 
-    public void setTime(double time) {
+    public void setTime(Time time) {
         this.time = time;
     }
 

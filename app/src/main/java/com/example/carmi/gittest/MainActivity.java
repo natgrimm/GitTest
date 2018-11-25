@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.GitTest.MESSAGE";
     private static final String TAG = "MainActivity";
     private static final String CHANNEL_ID = "YOUR_CHANNEL_NAME";
-    private static final int notificationId = 123456;
+    private static final int NOTIFICATION_ID = 123456;
 
     List<Appointment> appointmentList = new ArrayList<Appointment>();
 
@@ -35,26 +36,43 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        /*
         //////
         // notifications stuff...
         createNotificationChannel();
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,0);
+
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle("My notification")
+                .setContentTitle("Appointment Reminder!")
                 .setContentText("Much longer text that cannot fit one line...")
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText("Much longer text that cannot fit one line..."))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                // should the category be set to event or reminder??
+                .setCategory(NotificationCompat.CATEGORY_EVENT)
+                .setContentIntent(pendingIntent )
                 // automatically remove the notification when the user taps it
                 .setAutoCancel(true);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         // notificationId is a unique int for each notification that you must define
-        notificationManager.notify(notificationId, mBuilder.build());
+        notificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+        */
         /////
-
-
+        /*
+        Calendar cal = Calendar.getInstance();
+        Intent intent = new Intent(Intent.ACTION_EDIT);
+        intent.setType("vnd.android.cursor.item/event");
+        intent.putExtra("beginTime", cal.getTimeInMillis());
+        intent.putExtra("allDay", false);
+        intent.putExtra("rrule", "FREQ=NEVER");
+        intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
+        intent.putExtra("title", "A Test Event from android app");
+        startActivity(intent);
+*/
         // If there are any Shared Preferences, load them into their respective text-boxes
         // First, find the needed text-boxes
         EditText nameTextBox = findViewById(R.id.textName);
@@ -106,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
     * higher. You should execute this code as soon as your app starts. It's safe to call this
     * repeatedly because creating an existing notification channel performs no operation.
     */
+    /*
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
@@ -114,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
             //String description = getString(R.string.channel_description);
             String name = "default";
             String description = "YOUR_NOTIFICATION_CHANNEL_DESCRIPTION";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
             // Register the channel with the system; you can't change the importance
@@ -123,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
+    */
 
     public void onScheduleClick(View v) {
         // Pull the information that the user put into the name and phone text-boxes
@@ -199,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CalendarActivity.class);
         intent.putExtra(EXTRA_MESSAGE, intentMessage);
         startActivity(intent);
-        this.goToCalendar(v);
+        //this.goToCalendar(v);
 
     }
 

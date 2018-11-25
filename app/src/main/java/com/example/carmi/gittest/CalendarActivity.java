@@ -2,6 +2,9 @@ package com.example.carmi.gittest;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+
+import java.sql.Time;
 
 public class CalendarActivity extends AppCompatActivity {
 
@@ -11,5 +14,4 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
 
     }
-
 }
