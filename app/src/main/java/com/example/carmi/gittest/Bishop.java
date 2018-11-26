@@ -21,7 +21,7 @@ public class Bishop extends User implements UserSchedule {
         appointment.setTaken(false);
         appointment.setConfirmed(false);
         appointment.setBishopricMember(this.getName());
-        appointments.add(appointment);
+
 
     }
 

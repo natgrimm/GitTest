@@ -18,7 +18,10 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.GitTest.MESSAGE";
     private static final String TAG = "MainActivity";
 
-    List<Appointment> appointmentList = new ArrayList<Appointment>();
+    User bishopUser = new Bishop(null, null);
+    User counselorUser = new Counselor(null, null);
+    User memberUser = new Member(null, null);
+    List<Appointment> masterSchedule = new ArrayList<Appointment>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +112,9 @@ public class MainActivity extends AppCompatActivity {
         String userName = name.toString();
         String phoneNumber = phone.toString();
 
+        bishopUser.setName(userName);
+        bishopUser.setPhoneNumber(phoneNumber);
+
         // Create an intent containing the username and phone number and start the Calendar Activity
         String intentMessage = userName + " " + phoneNumber;
         Intent intent = new Intent(this, CalendarActivity.class);
@@ -124,6 +130,9 @@ public class MainActivity extends AppCompatActivity {
         // Change the information into a string that we can use.
         String userName = name.toString();
         String phoneNumber = phone.toString();
+
+        counselorUser.setName(userName);
+        counselorUser.setPhoneNumber(phoneNumber);
 
         // Create an intent containing the username and phone number and start the Calendar Activity
         String intentMessage = userName + " " + phoneNumber;
@@ -141,17 +150,14 @@ public class MainActivity extends AppCompatActivity {
         String userName = name.toString();
         String phoneNumber = phone.toString();
 
+        memberUser.setName(userName);
+        memberUser.setPhoneNumber(phoneNumber);
+
         // Create an intent containing the username and phone number and start the Calendar Activity
         String intentMessage = userName + " " + phoneNumber;
         Intent intent = new Intent(this, CalendarActivity.class);
         intent.putExtra(EXTRA_MESSAGE, intentMessage);
         startActivity(intent);
-        this.goToCalendar(v);
-
     }
 
-    public void goToCalendar (View view){
-        Intent intent = new Intent (this, CalendarActivity.class);
-        startActivity(intent);
-    }
 }

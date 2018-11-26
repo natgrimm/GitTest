@@ -18,7 +18,6 @@ public class Member extends User implements UserSchedule {
     public void makeAppointment(Appointment appointment) {
         appointment.setName(this.getName());
         appointment.setPhoneNumber(this.getPhoneNumber());
-        appointments.add(appointment);
     }
 
     @Override

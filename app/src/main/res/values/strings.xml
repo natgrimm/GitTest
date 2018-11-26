@@ -7,4 +7,5 @@
     <string name="buttonBishop">Bishop</string>
     <string name="buttonCounselor">Counselor</string>
     <string name="buttonSecretary">Secretary</string>
+    <string name="buttonConfirm">Confirm</string>
 </resources>
