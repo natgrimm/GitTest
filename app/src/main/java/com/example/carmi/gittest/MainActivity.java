@@ -1,6 +1,5 @@
 package com.example.carmi.gittest;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -11,12 +10,13 @@ import android.view.View;
 import android.widget.EditText;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.GitTest.MESSAGE";
     private static final String TAG = "MainActivity";
+    private static final String CHANNEL_ID = "YOUR_CHANNEL_NAME";
+    private static final int NOTIFICATION_ID = 123456;
 
     User bishopUser = new Bishop(null, null);
     User counselorUser = new Counselor(null, null);
@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
                 phoneTextBox.setText(phone);
             }
         }
-
     }
 
     @Override
