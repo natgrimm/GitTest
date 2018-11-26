@@ -56,7 +56,7 @@ public class CalendarActivity extends AppCompatActivity {
 
     }
 
-    public void onScheduleClick(View v) {
+    public void onConfirmClick(View v) {
         int hour = 7;
         int min = 25;
         int sec = 0;
