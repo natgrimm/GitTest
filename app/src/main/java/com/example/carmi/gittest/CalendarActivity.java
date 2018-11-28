@@ -50,10 +50,13 @@ public class CalendarActivity extends AppCompatActivity {
 */
         adapter = new ArrayAdapter(this, android.R.layout.activity_list_item);
 
-
-
     }
 
+
+    /**
+     * Sets up appointment
+     * @param v activity View
+     */
     public void onConfirmClick(View v) {
         Intent intent = new Intent(CalendarActivity.this , MainActivity.class);
         startActivity(intent);
