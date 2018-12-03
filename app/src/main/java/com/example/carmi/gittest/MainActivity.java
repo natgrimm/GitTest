@@ -12,6 +12,7 @@ import android.widget.EditText;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.GitTest.MESSAGE";
     private static final String TAG = "MainActivity";
@@ -73,6 +74,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Pulls up calendar view
+     * @param v activity View
+     */
     public void onScheduleClick(View v) {
         // Pull the information that the user put into the name and phone text-boxes
         EditText name = findViewById(R.id.textName);
@@ -158,5 +163,4 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_MESSAGE, intentMessage);
         startActivity(intent);
     }
-
 }

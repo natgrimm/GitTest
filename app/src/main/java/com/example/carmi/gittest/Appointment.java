@@ -92,14 +92,27 @@ public class Appointment {
         this.minute = minute;
     }
 
+    /**
+     * Is this time slot taken?
+     * @return true if time slot is taken, false if not
+     */
     public boolean isTaken() {
         return taken;
     }
 
+    /**
+     * Set time slot to be taken.
+     * @param taken Is something taken, or not?
+     */
     public void setTaken(boolean taken) {
         this.taken = taken;
     }
 
+    /**
+     * Is the given number a real phone number?
+     * @param phoneNumber a phone number
+     * @return true if the phone number is a correct one, false otherwise
+     */
     public boolean checkPhone(String phoneNumber) {
         return true;
     }
