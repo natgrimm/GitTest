@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "382815662828",
+    "firebase_url": "https://wardcalendar-477b7.firebaseio.com",
+    "project_id": "wardcalendar-477b7",
+    "storage_bucket": "wardcalendar-477b7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382815662828:android:9111fcb5ecf649c5",
+        "android_client_info": {
+          "package_name": "com.example.carmi.gittest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382815662828-da6c7tm7ejj5dtjahilcfkrhplppdbqm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.carmi.gittest",
+            "certificate_hash": "758a6ffe1a74178d86226332b3a2fbe94e1ebf5c"
+          }
+        },
+        {
+          "client_id": "382815662828-61ji3d9sj1nb0rrjotghq8h4fmn4i8d9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUIB-6-lHS5ueX5tkcvKDdr6OL2_x2QnY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "382815662828-61ji3d9sj1nb0rrjotghq8h4fmn4i8d9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
