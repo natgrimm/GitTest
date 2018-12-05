@@ -2,8 +2,9 @@ package com.example.carmi.gittest;
 
 public class Appointment {
     private String name;
+    private User user;
     private String phoneNumber;
-    private String bishopricMember;
+    private String place;
     private int day;
     private int month;
     private int year;
@@ -20,20 +21,20 @@ public class Appointment {
         this.minute = minute;
     }
 
-    public boolean isConfirmed() {
-        return confirmed;
-    }
-
-    public void setConfirmed(boolean confirmed) {
-        this.confirmed = confirmed;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getPhoneNumber() {
@@ -44,12 +45,12 @@ public class Appointment {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getBishopricMember() {
-        return bishopricMember;
+    public String getPlace() {
+        return place;
     }
 
-    public void setBishopricMember(String bishopricMember) {
-        this.bishopricMember = bishopricMember;
+    public void setPlace(String place) {
+        this.place = place;
     }
 
     public int getDay() {
@@ -90,6 +91,14 @@ public class Appointment {
 
     public void setMinute(int minute) {
         this.minute = minute;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
     }
 
     /**
