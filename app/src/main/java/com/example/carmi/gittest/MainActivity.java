@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +18,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.GitTest.MESSAGE";
     private static final String TAG = "MainActivity";
-    private static final String CHANNEL_ID = "YOUR_CHANNEL_NAME";
-    private static final int NOTIFICATION_ID = 123456;
+    //LIST OF ARRAY STRINGS WHICH WILL SERVE AS LIST ITEMS
+    private ArrayList<String> listItems = new ArrayList<String>();
+    //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
+    private ArrayAdapter<String> adapter;
 
     User bishopUser = new Bishop(null, null);
     User counselorUser = new Counselor(null, null);
@@ -48,6 +52,27 @@ public class MainActivity extends AppCompatActivity {
                 phoneTextBox.setText(phone);
             }
         }
+
+        // Make a fake appointment
+        Appointment p = new Appointment(20, 12, 2018, 5, 5);
+
+        // Set up a string to contain the appointment info
+        String appointment = "Date: " + p.getMonth() + "/" + p.getDay() + "/" + p.getYear() + "\n" +
+                             "Time: " + p.getHour() + ":";
+        if (p.getMinute() < 10)
+            appointment += "0" + p.getMinute();
+        else
+            appointment += p.getMinute();
+
+        appointment += "PM\n" +
+                       "Place: " + "TAY220";
+
+        // Set up the List adapter to connect to the list view
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listItems);
+        ListView listView = findViewById(R.id.listView);
+        listView.setAdapter(adapter);
+
+        adapter.add(appointment);
     }
 
     @Override
@@ -88,10 +113,10 @@ public class MainActivity extends AppCompatActivity {
         String phoneNumber = phone.toString();
 
         // Send this information off to be checked...
-        if (userName.equals(" ")) {
+        if (userName.equals(" ") || userName.equals("")) {
             Log.w(TAG, ("User name was left empty."));
         }
-        if (phoneNumber.equals(" ")) {
+        if (phoneNumber.equals(" ") || phoneNumber.equals("")) {
             Log.w(TAG, ("Phone number was left empty."));
         }
 
