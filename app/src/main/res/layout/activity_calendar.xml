@@ -22,6 +22,7 @@
         app:layout_constraintVertical_bias="0.05" />
 
     <ListView
+        android:id="@+id/listView2"
         android:layout_width="188dp"
         android:layout_height="138dp"
         android:layout_marginStart="84dp"

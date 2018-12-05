@@ -18,15 +18,13 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.GitTest.MESSAGE";
     private static final String TAG = "MainActivity";
-    //LIST OF ARRAY STRINGS WHICH WILL SERVE AS LIST ITEMS
+    // List of strings -> this will be our list items
     private ArrayList<String> listItems = new ArrayList<String>();
-    //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
+    // The string adapter -> this will handle the data of the listview
     private ArrayAdapter<String> adapter;
 
-    User bishopUser = new Bishop(null, null);
-    User counselorUser = new Counselor(null, null);
-    User memberUser = new Member(null, null);
     List<Appointment> masterSchedule = new ArrayList<Appointment>();
+    User user = new User();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,14 +62,16 @@ public class MainActivity extends AppCompatActivity {
         else
             appointment += p.getMinute();
 
+        // need to not hard-code this
         appointment += "PM\n" +
                        "Place: " + "TAY220";
 
-        // Set up the List adapter to connect to the list view
+        // Set up the array adapter and connect it to the list view
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listItems);
         ListView listView = findViewById(R.id.listView);
         listView.setAdapter(adapter);
 
+        // Add our appointment to the listview
         adapter.add(appointment);
     }
 
@@ -96,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
         prefEditor.putString("Name", name);
         prefEditor.putString("Phone", phone);
         prefEditor.apply();
-
     }
 
     /**
