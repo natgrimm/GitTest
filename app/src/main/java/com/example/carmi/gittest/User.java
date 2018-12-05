@@ -3,39 +3,37 @@ package com.example.carmi.gittest;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class User {
+public class User {
 
-    private String name;
-    private String phoneNumber;
-    private boolean Access;
+    private String memberNumber;
+    private String password;
+    private int Access;
 
-    public User(String name, String phoneNumber) {
-        this.name = name;
-        this.phoneNumber = phoneNumber;
+    public User() {
+        this.Access = 3;
     }
 
-    public String getName() {
-        return name;
+    public String getMemberNumber() {
+        return memberNumber;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMemberNumber(String memberNumber) {
+        this.memberNumber = memberNumber;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public boolean isAccess() {
+    public int getAccess() {
         return Access;
     }
 
-    public void setAccess(boolean access) {
+    public void setAccess(int access) {
         Access = access;
     }
-
 }
