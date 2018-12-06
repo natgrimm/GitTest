@@ -5,6 +5,7 @@ public class Appointment {
     private User user;
     private String phoneNumber;
     private String place;
+    private String amOrPm;
     private int day;
     private int month;
     private int year;
@@ -13,12 +14,14 @@ public class Appointment {
     private boolean taken;
     private boolean confirmed;
 
-    public Appointment(int day, int month, int year, int hour, int minute) {
+    public Appointment(int day, int month, int year, int hour, int minute, String amOrPm, String place) {
         this.day = day;
         this.month = month;
         this.year = year;
         this.hour = hour;
         this.minute = minute;
+        this.place = place;
+        this.amOrPm = amOrPm;
     }
 
     public String getName() {
@@ -51,6 +54,14 @@ public class Appointment {
 
     public void setPlace(String place) {
         this.place = place;
+    }
+
+    public String getAmOrPm() {
+        return amOrPm;
+    }
+
+    public void setAmOrPm(String amOrPm) {
+        this.amOrPm = amOrPm;
     }
 
     public int getDay() {
@@ -124,5 +135,30 @@ public class Appointment {
      */
     public boolean checkPhone(String phoneNumber) {
         return true;
+    }
+
+    /**
+     * Return appointment date
+     * @return a string containing the formatted appointment date
+     */
+    public String getDate() {
+        String date = month + "/" + day + "/" + year;
+        return date;
+    }
+
+    /**
+     * Return appointment time
+     * @return a string containing the formatted appointment time
+     */
+    public String getTime() {
+        String time = hour + ":";
+        if (minute < 10)
+            time += "0" + minute;
+        else
+            time += minute;
+
+        time += getAmOrPm();
+
+        return time;
     }
 }

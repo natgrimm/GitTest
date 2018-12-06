@@ -52,19 +52,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Make a fake appointment
-        Appointment p = new Appointment(20, 12, 2018, 5, 5);
+        Appointment p = new Appointment(20, 12, 2018, 5, 5,
+                                        "PM", "TAY220");
 
         // Set up a string to contain the appointment info
-        String appointment = "Date: " + p.getMonth() + "/" + p.getDay() + "/" + p.getYear() + "\n" +
-                             "Time: " + p.getHour() + ":";
-        if (p.getMinute() < 10)
-            appointment += "0" + p.getMinute();
-        else
-            appointment += p.getMinute();
-
-        // need to not hard-code this
-        appointment += "PM\n" +
-                       "Place: " + "TAY220";
+        String appointment = "Date: " + p.getDate() + "\n" +
+                             "Time: " + p.getTime() + "\n" +
+                             "Place: " + p.getPlace() + "\n";
 
         // Set up the array adapter and connect it to the list view
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listItems);
