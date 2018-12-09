@@ -102,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
         EditText phone = findViewById(R.id.textPhone);
 
         // Change the information into a string that we can use.
-        String userName = name.toString();
-        String phoneNumber = phone.toString();
+        String userName = name.getText().toString();
+        String phoneNumber = phone.getText().toString();
 
         // Send this information off to be checked...
         if (userName.equals(" ") || userName.equals("")) {

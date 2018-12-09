@@ -25,8 +25,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".CalendarActivity" />
-        <activity android:name=".LoginActivity"
-            android:exported="true"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+        <activity android:name=".SecretaryActivity" />
+        <activity android:name=".CreateAppointment"></activity>
     </application>
 
 </manifest>
