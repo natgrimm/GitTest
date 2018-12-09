@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -22,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> listItems = new ArrayList<String>();
     // The string adapter -> this will handle the data of the listview
     private ArrayAdapter<String> adapter;
+    private String memberNumber;
 
     List<Appointment> masterSchedule = new ArrayList<Appointment>();
     User user = new User();
@@ -30,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // pull the membership number from the intent that started this activity
+        Intent intent = getIntent();
+        memberNumber = intent.getStringExtra("membership");
 
         // If there are any Shared Preferences, load them into their respective text-boxes
         // First, find the needed text-boxes
@@ -105,12 +109,17 @@ public class MainActivity extends AppCompatActivity {
         String userName = name.getText().toString();
         String phoneNumber = phone.getText().toString();
 
-        // Send this information off to be checked...
-        if (userName.equals(" ") || userName.equals("")) {
-            Log.w(TAG, ("User name was left empty."));
+        // Make sure that the name and number fields were not left empty
+        if (userName.isEmpty()) {
+            name.setError("name cannot be left empty");
+            name.requestFocus();
+            return;
         }
-        if (phoneNumber.equals(" ") || phoneNumber.equals("")) {
-            Log.w(TAG, ("Phone number was left empty."));
+
+        if (phoneNumber.isEmpty()) {
+            phone.setError("number cannot be left empty");
+            phone.requestFocus();
+            return;
         }
 
         // Create an intent containing the username and phone number and start the Calendar Activity

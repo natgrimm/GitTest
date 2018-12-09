@@ -6,7 +6,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -22,8 +21,9 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
-    public static final String EXTRA_MESSAGE = "com.example.GitTest.MESSAGE";
+    public static final String EXTRA_MESSAGE = "membership";
     private static final String TAG = "LoginActivity";
+    private String memberNumber;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
 
@@ -50,24 +50,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
-/*
-    @Override
-    public void onStart() {
-        super.onStart();
 
-        // Check if user is signed in (non-null)
-        if (mAuth.getCurrentUser() != null) {
-
-        }
-    }
-*/
     public void onSignInOrRegisterClick(View v) {
         // Pull the information that the user entered in the membership and password text-boxes
         EditText membershipNumber = findViewById(R.id.textMembershipNumber);
         EditText password = findViewById(R.id.textPassword);
 
         // Change the information into a string that we can use
-        final String memberNumber = membershipNumber.getText().toString().trim();
+        memberNumber = membershipNumber.getText().toString().trim();
         final String pass = password.getText().toString().trim();
 
         // Make sure that the fields were not left empty
@@ -89,10 +79,11 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // The fields are not empty at this point, so let's authenticate our user.
+        // We know the fields are not empty at this point, so let's authenticate our user.
         // set progress bar to be visible
         progressBar.setVisibility(View.VISIBLE);
         final String email = memberNumber + "@gmail.com";
+
         mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -101,15 +92,31 @@ public class LoginActivity extends AppCompatActivity {
 
                 // was the registration successful?
                 if (task.isSuccessful()) {
+                    // yes it was, so start up the main activity
                     Toast.makeText(getApplicationContext(), "User Registered Successfully", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     // registration was not successful. This may be because the user is already registered
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                         // here, we know that it failed because the user was already signed in. Act accordingly
-                        Toast.makeText(getApplicationContext(), "You are already registered", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "You are already registered", Toast.LENGTH_SHORT).show();
                         mAuth.signInWithEmailAndPassword(email, pass);
+                        Intent intent = null;
 
+                        // depending on who signed in, we may need to start different activities
+                        if (memberNumber.equals("1") || (!memberNumber.equals("1") && !memberNumber.equals("2"))) {
+                            // the user is a bishopric member or a member -> start up the main activity
+                            intent = new Intent(getBaseContext(), MainActivity.class);
+                        }
+                        else {//if (memberNumber.equals("2")) {
+                            // the user is the executive secretary -> start up the secretary activity
+                            intent = new Intent(getBaseContext(), SecretaryActivity.class);
+                        }
+
+                        // include the memberNumber in the intent
+                        intent.putExtra(EXTRA_MESSAGE, memberNumber);
+                        // start the activity
+                        startActivity(intent);
                     }
                     else {
                         Toast.makeText(getApplicationContext(), Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
@@ -117,14 +124,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
-        /*
-        // Create an intent containing the membership number and start the Calendar Activity
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra(EXTRA_MESSAGE, memberNumber);
-        startActivity(intent);
-        */
     }
 
 
