@@ -8,15 +8,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.GitTest.MESSAGE";
     private static final String TAG = "LoginActivity";
+    private ProgressBar progressBar;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
+        mAuth = FirebaseAuth.getInstance();
 
 
         // If there is a membership number in Shared Preferences, load it into the correct text-box
@@ -34,21 +43,47 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /*
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
+    }
+    */
+
     public void onSignInOrRegisterClick(View v) {
-        // Need to authentication here
-
-
-
-        // Pull the information that the user put into membership number text-box
+        // Pull the information that the user entered in the membership and password text-boxes
         EditText membershipNumber = findViewById(R.id.textMembershipNumber);
+        EditText password = findViewById(R.id.textPassword);
 
         // Change the information into a string that we can use.
         String memberNumber = membershipNumber.toString();
+        String pass = password.toString();
 
+        // Make sure that the fields were not left empty
+        if (memberNumber.isEmpty()) {
+            membershipNumber.setError("membership number required");
+            membershipNumber.requestFocus();
+            return;
+        }
+
+        if (pass.isEmpty()) {
+            password.setError("password required");
+            password.requestFocus();
+            return;
+        }
+
+        // The fields are not empty at this point, so let's authenticate our user.
+
+
+        /*
         // Create an intent containing the membership number and start the Calendar Activity
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(EXTRA_MESSAGE, memberNumber);
         startActivity(intent);
+        */
     }
 
 
