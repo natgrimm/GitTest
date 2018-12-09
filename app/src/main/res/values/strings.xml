@@ -12,4 +12,10 @@
     <string name="buttonSignInOrRegister">Sign In or Register</string>
     <string name="textMembershipNumber">LDS Membership Number</string>
     <string name="textPassword">Enter a password</string>
+    <string name="textCreateAppointment">Create an Appointment</string>
+    <string name="textNeedApprovalAppointments">Appointments that need approval</string>
+    <string name="buttonApprove">Approve</string>
+    <string name="buttonDeny">Deny</string>
+    <string name="buttonCreateAppointment">Create Appointment</string>
+    <string name="buttonScheduleAppointment">Schedule Appointment</string>
 </resources>
