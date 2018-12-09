@@ -15,7 +15,9 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
-    public static final String EXTRA_MESSAGE = "com.example.GitTest.MESSAGE";
+    public static final String MESSAGE = "membershipNumber";
+    public static final String NUMBER = "number";
+    public static final String NAME = "name";
     private static final String TAG = "MainActivity";
     // List of strings -> this will be our list items
     private ArrayList<String> listItems = new ArrayList<String>();
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         // pull the membership number from the intent that started this activity
         Intent intent = getIntent();
-        memberNumber = intent.getStringExtra("membership");
+        memberNumber = intent.getStringExtra(MESSAGE);
 
         // If there are any Shared Preferences, load them into their respective text-boxes
         // First, find the needed text-boxes
@@ -123,9 +125,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Create an intent containing the username and phone number and start the Calendar Activity
-        String intentMessage = userName + " " + phoneNumber;
+        //String intentMessage = userName + " " + phoneNumber;
         Intent intent = new Intent(this, CalendarActivity.class);
-        intent.putExtra(EXTRA_MESSAGE, intentMessage);
+        //intent.putExtra(EXTRA_MESSAGE, intentMessage);
+        intent.putExtra(MESSAGE, memberNumber);
+        intent.putExtra(NUMBER, phoneNumber);
+        intent.putExtra(NAME, userName);
         startActivity(intent);
     }
 }

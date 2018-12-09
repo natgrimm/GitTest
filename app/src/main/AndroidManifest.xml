@@ -29,7 +29,9 @@
             android:name=".LoginActivity"
             android:exported="true" />
         <activity android:name=".SecretaryActivity" />
-        <activity android:name=".CreateAppointment"></activity>
+        <activity android:name=".CreateAppointment" />
+        <activity android:name=".GetNameAndNumber" />
+        <activity android:name=".NameAndNumberActivity"></activity>
     </application>
 
 </manifest>

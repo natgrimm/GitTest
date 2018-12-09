@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
-    public static final String EXTRA_MESSAGE = "membership";
+    public static final String MESSAGE = "membershipNumber";
     private static final String TAG = "LoginActivity";
     private String memberNumber;
     private ProgressBar progressBar;
@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                         // here, we know that it failed because the user was already signed in. Act accordingly
                         //Toast.makeText(getApplicationContext(), "You are already registered", Toast.LENGTH_SHORT).show();
                         mAuth.signInWithEmailAndPassword(email, pass);
-                        Intent intent = null;
+                        Intent intent;
 
                         // depending on who signed in, we may need to start different activities
                         if (memberNumber.equals("1") || (!memberNumber.equals("1") && !memberNumber.equals("2"))) {
@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         // include the memberNumber in the intent
-                        intent.putExtra(EXTRA_MESSAGE, memberNumber);
+                        intent.putExtra(MESSAGE, memberNumber);
                         // start the activity
                         startActivity(intent);
                     }

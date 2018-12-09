@@ -16,7 +16,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class CalendarActivity extends AppCompatActivity {
+    public static final String MESSAGE = "membershipNumber";
     private static final String TAG = "CalendarActivity";
+    public static final String NUMBER = "number";
+    public static final String NAME = "name";
     // List of strings -> this will be our list items
     private ArrayList<String> calendarItems = new ArrayList<String>();
     // The string adapter -> this will handle the data of the listview
@@ -24,12 +27,20 @@ public class CalendarActivity extends AppCompatActivity {
     private CalendarView myCalendarView;
     private Button confirmButton;
     private ListView myListView;
+    private String memberNumber;
+    private String number;
+    private String name;
     private String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+
+        Intent intent = getIntent();
+        memberNumber = intent.getStringExtra(MESSAGE);
+        number = intent.getStringExtra(NUMBER);
+        name = intent.getStringExtra(NAME);
 
         myCalendarView = (CalendarView) findViewById(R.id.calendarView);
 
