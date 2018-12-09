@@ -3,15 +3,23 @@ package com.example.carmi.gittest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.GitTest.MESSAGE";
@@ -42,25 +50,25 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
-
-    /*
+/*
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
-    }
-    */
 
+        // Check if user is signed in (non-null)
+        if (mAuth.getCurrentUser() != null) {
+
+        }
+    }
+*/
     public void onSignInOrRegisterClick(View v) {
         // Pull the information that the user entered in the membership and password text-boxes
         EditText membershipNumber = findViewById(R.id.textMembershipNumber);
         EditText password = findViewById(R.id.textPassword);
 
         // Change the information into a string that we can use.
-        String memberNumber = membershipNumber.toString();
-        String pass = password.toString();
+        final String memberNumber = membershipNumber.toString();
+        final String pass = password.toString();
 
         // Make sure that the fields were not left empty
         if (memberNumber.isEmpty()) {
@@ -75,12 +83,44 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // The fields are not empty at this point, so let's authenticate our user.
+        if (pass.length() < 6) {
+            password.setError("minimum length for password is 6");
+            password.requestFocus();
+            return;
+        }
 
+        // The fields are not empty at this point, so let's authenticate our user.
+        // set progress bar to be visible
+        progressBar.setVisibility(View.VISIBLE);
+        mAuth.createUserWithEmailAndPassword(memberNumber + "@gmail.com", pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                // the task was completed. Take the progress bar away
+                progressBar.setVisibility(View.GONE);
+
+                // was the registration successful?
+                if (task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "User Registered Successfully", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    // registration was not successful. This may be because the user is already registered
+                    if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                        // here, we know that it failed because the user was already signed in. Act accordingly
+                        Toast.makeText(getApplicationContext(), "You are already registered", Toast.LENGTH_SHORT).show();
+                        mAuth.signInWithEmailAndPassword(memberNumber + "@gmail.com", pass);
+
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
 
         /*
         // Create an intent containing the membership number and start the Calendar Activity
         Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(EXTRA_MESSAGE, memberNumber);
         startActivity(intent);
         */
