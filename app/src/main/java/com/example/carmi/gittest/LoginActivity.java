@@ -66,9 +66,9 @@ public class LoginActivity extends AppCompatActivity {
         EditText membershipNumber = findViewById(R.id.textMembershipNumber);
         EditText password = findViewById(R.id.textPassword);
 
-        // Change the information into a string that we can use.
-        final String memberNumber = membershipNumber.toString();
-        final String pass = password.toString();
+        // Change the information into a string that we can use
+        final String memberNumber = membershipNumber.getText().toString().trim();
+        final String pass = password.getText().toString().trim();
 
         // Make sure that the fields were not left empty
         if (memberNumber.isEmpty()) {
@@ -92,7 +92,8 @@ public class LoginActivity extends AppCompatActivity {
         // The fields are not empty at this point, so let's authenticate our user.
         // set progress bar to be visible
         progressBar.setVisibility(View.VISIBLE);
-        mAuth.createUserWithEmailAndPassword(memberNumber + "@gmail.com", pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        final String email = memberNumber + "@gmail.com";
+        mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 // the task was completed. Take the progress bar away
@@ -107,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                         // here, we know that it failed because the user was already signed in. Act accordingly
                         Toast.makeText(getApplicationContext(), "You are already registered", Toast.LENGTH_SHORT).show();
-                        mAuth.signInWithEmailAndPassword(memberNumber + "@gmail.com", pass);
+                        mAuth.signInWithEmailAndPassword(email, pass);
 
                     }
                     else {
