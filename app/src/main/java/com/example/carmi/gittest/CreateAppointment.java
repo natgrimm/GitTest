@@ -1,12 +1,13 @@
 package com.example.carmi.gittest;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -16,6 +17,8 @@ import static java.lang.Integer.parseInt;
 public class CreateAppointment extends AppCompatActivity {
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference ref;
+    public static final String MESSAGE = "membershipNumber";
+    private String memberNumber;
     private EditText month;
     private EditText day;
     private EditText year;
@@ -28,6 +31,10 @@ public class CreateAppointment extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_appointment);
+
+        // pull the membership number from the intent that started this activity
+        Intent intent = getIntent();
+        memberNumber = intent.getStringExtra(MESSAGE);
 
         // connect all the edit text variables to their respective text-box
         month = findViewById(R.id.textMonth);
@@ -75,12 +82,14 @@ public class CreateAppointment extends AppCompatActivity {
             }
         }
 
-        //ref = database.getReference("users/ada");
+        ref = database.getReference();
     }
 
     public void createAppointment(View v) {
+        // make sure that all the text-boxes were filled out
         checkFields();
-/*
+
+        // grab the info in the fields and turn it into usable stuff
         int mon = parseInt(month.getText().toString());
         int d = Integer.parseInt(day.getText().toString());
         int y = Integer.parseInt(year.getText().toString());
@@ -88,23 +97,24 @@ public class CreateAppointment extends AppCompatActivity {
         int min = Integer.parseInt(minute.getText().toString());
         String AorP = AMorPM.getText().toString();
         String p = place.getText().toString();
-*/
-        // make sure that all the fields were filled out
 
 
-        /*
         // all of the fields have been checked now. Create a new appointment
-        DatabaseReference postsRef = ref.child("https://wardcalendar-477b7.firebaseio.com/");
+        Appointment apt = new Appointment(d, mon, y, h, min, AorP, p);
+        apt.setConfirmed(false);
+        apt.setTaken(false);
 
-        DatabaseReference newPostRef = postsRef.push();
-        //newPostRef.setValueAsync(new Appointment(d, mon, y, h, min, AorP, p));
+        // push it onto the database
+        DatabaseReference aptsRef = ref.child("appointmentList");
+        aptsRef.push().setValue(apt);
 
-        // We can also chain the two calls together
-        //postsRef.push().setValueAsync(new Post("alanisawesome", "The Turing Machine"));
-*/
-        /*
-        ref = database.getReference("users").child("https://wardcalendar-477b7.firebaseio.com/")
-                .push().setValue(new Appointment(d, mon, y, h, min, AorP, p));*/
+        // send out a toast signalling that we've successfully created an appointment
+        Toast.makeText(getApplicationContext(), "Appointment successfully created", Toast.LENGTH_SHORT).show();
+
+        // now send the user back to the main activity -> with their membership number
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(MESSAGE, memberNumber);
+        startActivity(intent);
     }
 
     /**

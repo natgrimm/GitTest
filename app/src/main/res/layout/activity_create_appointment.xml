@@ -64,17 +64,17 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        tools:ignore="Autofill"
         android:id="@+id/textDay"
         android:layout_width="46dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/day"
-        android:inputType="textPersonName"
+        android:inputType="number"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
         app:layout_constraintEnd_toStartOf="@+id/textView5"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView4" />
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        tools:ignore="Autofill" />
 
     <EditText
         tools:ignore="Autofill"
