@@ -19,4 +19,16 @@
     <string name="buttonCreateAppointment">Create Appointment</string>
     <string name="buttonScheduleAppointment">Schedule Appointment</string>
     <string name="textEnterNameAndNumber">Enter the name and number of the person for whom you are scheduling for.</string>
+    <string name="month">05</string>
+    <string name="day">22</string>
+    <string name="year">2018</string>
+    <string name="hour">6</string>
+    <string name="minute">35</string>
+    <string name="AMorPM">PM</string>
+    <string name="place">TAY 220</string>
+    <string name="textDash">/</string>
+    <string name="textColon">:</string>
+    <string name="textPromptDate">Enter date in the format of mm/dd/yyyy</string>
+    <string name="textPromptTime">Enter time in the format hh:mm  AM or PM</string>
+    <string name="textPromptPlace">Place:</string>
 </resources>
