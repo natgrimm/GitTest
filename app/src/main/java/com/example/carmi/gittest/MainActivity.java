@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String NUMBER = "number";
     public static final String NAME = "name";
     private static final String TAG = "MainActivity";
+    private Button scheduleButton;
     // List of strings -> this will be our list items
     private ArrayList<String> listItems = new ArrayList<String>();
     // The string adapter -> this will handle the data of the listview
@@ -36,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
         // pull the membership number from the intent that started this activity
         Intent intent = getIntent();
         memberNumber = intent.getStringExtra(MESSAGE);
+
+        // if the memberNumber is the bishop's number, make the Schedule button visible
+        scheduleButton = findViewById(R.id.buttonCreateAppointment);
+        if (memberNumber.equals("1")) {
+            scheduleButton.setVisibility(View.VISIBLE);
+        }
 
         // If there are any Shared Preferences, load them into their respective text-boxes
         // First, find the needed text-boxes
@@ -125,12 +133,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Create an intent containing the username and phone number and start the Calendar Activity
-        //String intentMessage = userName + " " + phoneNumber;
         Intent intent = new Intent(this, CalendarActivity.class);
-        //intent.putExtra(EXTRA_MESSAGE, intentMessage);
         intent.putExtra(MESSAGE, memberNumber);
         intent.putExtra(NUMBER, phoneNumber);
         intent.putExtra(NAME, userName);
+        startActivity(intent);
+    }
+
+    public void createAppointment(View v) {
+        Intent intent = new Intent(this, CreateAppointment.class);
+        intent.putExtra(MESSAGE, memberNumber);
         startActivity(intent);
     }
 }
