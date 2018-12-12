@@ -1,8 +1,8 @@
 package com.example.carmi.gittest;
 
 public class Appointment {
+    private String memberNumber;
     private String name;
-    private User user;
     private String phoneNumber;
     private String place;
     private String amOrPm;
@@ -14,14 +14,13 @@ public class Appointment {
     private boolean taken;
     private boolean confirmed;
 
-    public Appointment(int day, int month, int year, int hour, int minute, String amOrPm, String place) {
-        this.day = day;
-        this.month = month;
-        this.year = year;
-        this.hour = hour;
-        this.minute = minute;
-        this.place = place;
-        this.amOrPm = amOrPm;
+
+    public String getMemberNumber() {
+        return memberNumber;
+    }
+
+    public void setMemberNumber(String memberNumber) {
+        this.memberNumber = memberNumber;
     }
 
     public String getName() {
@@ -30,14 +29,6 @@ public class Appointment {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getPhoneNumber() {
@@ -104,61 +95,19 @@ public class Appointment {
         this.minute = minute;
     }
 
+    public boolean isTaken() {
+        return taken;
+    }
+
+    public void setTaken(boolean taken) {
+        this.taken = taken;
+    }
+
     public boolean isConfirmed() {
         return confirmed;
     }
 
     public void setConfirmed(boolean confirmed) {
         this.confirmed = confirmed;
-    }
-
-    /**
-     * Is this time slot taken?
-     * @return true if time slot is taken, false if not
-     */
-    public boolean isTaken() {
-        return taken;
-    }
-
-    /**
-     * Set time slot to be taken.
-     * @param taken Is something taken, or not?
-     */
-    public void setTaken(boolean taken) {
-        this.taken = taken;
-    }
-
-    /**
-     * Is the given number a real phone number?
-     * @param phoneNumber a phone number
-     * @return true if the phone number is a correct one, false otherwise
-     */
-    public boolean checkPhone(String phoneNumber) {
-        return true;
-    }
-
-    /**
-     * Return appointment date
-     * @return a string containing the formatted appointment date
-     */
-    public String getDate() {
-        String date = month + "/" + day + "/" + year;
-        return date;
-    }
-
-    /**
-     * Return appointment time
-     * @return a string containing the formatted appointment time
-     */
-    public String getTime() {
-        String time = hour + ":";
-        if (minute < 10)
-            time += "0" + minute;
-        else
-            time += minute;
-
-        time += getAmOrPm();
-
-        return time;
     }
 }

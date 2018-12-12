@@ -5,10 +5,17 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     private String memberNumber;
 
-    List<Appointment> masterSchedule = new ArrayList<Appointment>();
+    List<Appointment> appointmentList = new ArrayList<Appointment>();
     User user = new User();
 
     @Override
@@ -36,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         // pull the membership number from the intent that started this activity
         Intent intent = getIntent();
         memberNumber = intent.getStringExtra(MESSAGE);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference myRef = database.getReference();
 
         // If there are any Shared Preferences, load them into their respective text-boxes
         // First, find the needed text-boxes
@@ -57,22 +67,39 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        // Make a fake appointment
-        Appointment p = new Appointment(20, 12, 2018, 5, 5,
-                                        "PM", "TAY220");
+        myRef.child("appointmentList").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                Iterable<DataSnapshot> children = snapshot.getChildren();
+
+                for (DataSnapshot child : children) {
+                    Appointment appointment = child.getValue(Appointment.class);
+                    appointmentList.add(appointment);
+                    if(appointment.getMemberNumber() == memberNumber) {
+                        String appointment1 = "Date: " + appointment.getMonth() + "/" + appointment.getDay() + "/" + appointment.getYear() + "\n" +
+                                "Time: " + appointment.getHour() + ":" + appointment.getMinute() + appointment.getAmOrPm() + "\n" +
+                                "Place: " + appointment.getPlace() + "\n";
+                        adapter.add(appointment1);
+                    }
+                    Log.w(TAG, "Appointment: " + appointment);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "The read failed: " + databaseError.toException());
+            }
+        });
 
         // Set up a string to contain the appointment info
-        String appointment = "Date: " + p.getDate() + "\n" +
-                             "Time: " + p.getTime() + "\n" +
-                             "Place: " + p.getPlace() + "\n";
+
 
         // Set up the array adapter and connect it to the list view
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listItems);
         ListView listView = findViewById(R.id.listView);
         listView.setAdapter(adapter);
 
-        // Add our appointment to the listview
-        adapter.add(appointment);
+
     }
 
     @Override
