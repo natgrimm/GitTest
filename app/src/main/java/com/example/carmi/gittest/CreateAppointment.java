@@ -100,7 +100,15 @@ public class CreateAppointment extends AppCompatActivity {
 
 
         // all of the fields have been checked now. Create a new appointment
+        //Appointment apt = new Appointment(d, mon, y, h, min, AorP, p);
         Appointment apt = new Appointment();
+        apt.setDay(d);
+        apt.setMonth(mon);
+        apt.setYear(y);
+        apt.setHour(h);
+        apt.setMinute(min);
+        apt.setAmOrPm(AorP);
+        apt.setPlace(p);
         apt.setConfirmed(false);
         apt.setTaken(false);
 

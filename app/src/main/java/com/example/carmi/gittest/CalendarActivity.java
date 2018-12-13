@@ -165,16 +165,29 @@ public class CalendarActivity extends AppCompatActivity {
 
 
     }
-}
+
     /**
-     * Sets up appointment
+     * Schedules an appointment
      * @param v activity View
      */
-   /* public void onConfirmClick(View v) {
-        Intent intent = new Intent(CalendarActivity.this , MainActivity.class);
+    public void onConfirmClick(View v) {
+        // depending on the user, send them to the appropriate activity after they have confirmed
+        // (for the secretary, send him back to the secretary activity, and for the bishop and regular
+        // user, send them to the main activity)
+        Intent intent;
+        if (memberNumber.equals("2"))
+        {
+            intent = new Intent(CalendarActivity.this, SecretaryActivity.class);
+        }
+        else
+        {
+            intent = new Intent(CalendarActivity.this , MainActivity.class);
+        }
+        // now start the activity up
         startActivity(intent);
 
-        // Set a calendar reminder
+        // No matter who the user is, set a calendar reminder for them. They can choose to discard
+        // this, or save it if they want.
         int hour = 7;
         int min = 25;
         int sec = 0;
@@ -196,7 +209,7 @@ public class CalendarActivity extends AppCompatActivity {
                 .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endMillis)
                 .putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, false) // just included for completeness
                 .putExtra(CalendarContract.Events.TITLE, "Appointment Reminder")
-                .putExtra(CalendarContract.Events.DESCRIPTION, "Heading out with friends to do something awesome.")
+                .putExtra(CalendarContract.Events.DESCRIPTION, "Appointment with a bishopric member.")
                 .putExtra(CalendarContract.Events.EVENT_LOCATION, "Earth")
                 .putExtra(CalendarContract.Events.RRULE, "FREQ=DAILY")
                 .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
@@ -204,4 +217,4 @@ public class CalendarActivity extends AppCompatActivity {
         startActivity(intent2);
     }
 }
-*/
+
