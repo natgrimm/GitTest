@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GitTest</string>
+    <string name="app_name">Executive Secretary</string>
     <string name="appointments">My Appointments</string>
     <string name="buttonSchedule">Schedule Appointment</string>
     <string name="textName">John Smith</string>

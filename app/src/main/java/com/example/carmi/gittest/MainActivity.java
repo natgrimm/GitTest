@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private String memberNumber;
 
     List<Appointment> appointmentList = new ArrayList<Appointment>();
-    User user = new User();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         memberNumber = intent.getStringExtra(MESSAGE);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //Get the Firebase Database set up with the right instance
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //Attach the right reference to the Firebase Database
         final DatabaseReference myRef = database.getReference();
 
         // if the memberNumber is the bishop's number, make the Schedule button visible
@@ -75,31 +76,42 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        //Reference to database is pointed at appointmentList
         myRef.child("appointmentList").addValueEventListener(new ValueEventListener() {
+            //When data changes in the database this function is activated
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                //Clear all data before loading more
+                appointmentList.clear();
+                adapter.clear();
+                //Get a snapshot of all the children of appointmentList
                 Iterable<DataSnapshot> children = snapshot.getChildren();
 
+                //Iterate through the children
                 for (DataSnapshot child : children) {
+                    //Set them as appointments
                     Appointment appointment = child.getValue(Appointment.class);
+                    //Add the appointment to appointmentList
                     appointmentList.add(appointment);
-                    if(appointment.getMemberNumber() == memberNumber) {
-                        String appointment1 = "Date: " + appointment.getMonth() + "/" + appointment.getDay() + "/" + appointment.getYear() + "\n" +
-                                "Time: " + appointment.getHour() + ":" + appointment.getMinute() + appointment.getAmOrPm() + "\n" +
-                                "Place: " + appointment.getPlace() + "\n";
-                        adapter.add(appointment1);
+                    //If the memberNumber value is not null
+                    if(appointment.getMemberNumber() != null) {
+                        //Check the memberNumber of each appointment and if it is the same as the user add it to their listView as a string
+                        if(appointment.getMemberNumber().equals(memberNumber)) {
+                            String appointment1 = "Date: " + appointment.getMonth() + "/" + appointment.getDay() + "/" + appointment.getYear() + "\n" +
+                                    "Time: " + appointment.getHour() + ":" + appointment.getMinute() + appointment.getAmOrPm() + "\n" +
+                                    "Place: " + appointment.getPlace() + "\n" + "Confirmed: " +appointment.isConfirmed() + "\n";
+                            adapter.add(appointment1);
+                        }
                     }
-                    Log.w(TAG, "Appointment: " + appointment);
                 }
             }
 
+            //If database is cancelled give this error
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.w(TAG, "The read failed: " + databaseError.toException());
             }
         });
-
-        // Set up a string to contain the appointment info
 
 
         // Set up the array adapter and connect it to the list view
