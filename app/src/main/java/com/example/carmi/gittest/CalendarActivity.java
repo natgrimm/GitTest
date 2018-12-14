@@ -15,6 +15,7 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -168,6 +169,14 @@ public class CalendarActivity extends AppCompatActivity {
                         Log.d("Key is", ""+keyUpdate);
                     }
                 }
+
+                // Create a string with the time and date of the appointment
+                String message = "You've selected " + appointmentPass.getName() + "'s appointment " +
+                        "on " + appointmentPass.getMonth() + "/" + appointmentPass.getDay() +
+                        "/" + appointmentPass.getYear();
+
+                // Send a toast to the screen indicating which appointment was selected
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
             }
         });
     }

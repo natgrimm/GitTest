@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -108,6 +109,23 @@ public class SecretaryActivity extends AppCompatActivity {
                         keyUpdate = keys.get(index);
                     }
                 }
+
+
+                // Create a string with the time and date of the appointment
+                String message = "You've selected " + appointmentUpdate.getHour() + ":";
+
+                // Make sure the minutes prints our correctly (with or without a zero before it...)
+                if (appointmentUpdate.getMinute() < 10) {
+                    message += "0" + appointmentUpdate.getMinute();
+                }
+                else {
+                    message += appointmentUpdate.getMinute();
+                }
+                message += appointmentUpdate.getAmOrPm() + " on " + appointmentUpdate.getMonth() + "/" +
+                        appointmentUpdate.getDay() + "/" + appointmentUpdate.getYear();
+
+                // Send a toast to the screen indicating which appointment was selected
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
             }
         });
 
