@@ -171,9 +171,17 @@ public class CalendarActivity extends AppCompatActivity {
                 }
 
                 // Create a string with the time and date of the appointment
-                String message = "You've selected " + appointmentPass.getName() + "'s appointment " +
-                        "on " + appointmentPass.getMonth() + "/" + appointmentPass.getDay() +
-                        "/" + appointmentPass.getYear();
+                String message = "You've selected " + appointmentPass.getHour() + ":";
+
+                // Make sure the minutes prints our correctly (with or without a zero before it...)
+                if (appointmentPass.getMinute() < 10) {
+                    message += "0" + appointmentPass.getMinute();
+                }
+                else {
+                    message += appointmentPass.getMinute();
+                }
+                message += appointmentPass.getAmOrPm() + " on " + appointmentPass.getMonth() + "/" +
+                        appointmentPass.getDay() + "/" + appointmentPass.getYear();
 
                 // Send a toast to the screen indicating which appointment was selected
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();

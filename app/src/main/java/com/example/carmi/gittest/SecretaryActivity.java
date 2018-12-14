@@ -29,7 +29,7 @@ public class SecretaryActivity extends AppCompatActivity {
     private List<Appointment> validAppointments = new ArrayList<Appointment>();
     private Appointment appointmentUpdate;
     private String keyUpdate;
-    private ArrayAdapter<String> adapter;;
+    private ArrayAdapter<String> adapter;
 
 
     @Override
@@ -110,19 +110,10 @@ public class SecretaryActivity extends AppCompatActivity {
                     }
                 }
 
-
-                // Create a string with the time and date of the appointment
-                String message = "You've selected " + appointmentUpdate.getHour() + ":";
-
-                // Make sure the minutes prints our correctly (with or without a zero before it...)
-                if (appointmentUpdate.getMinute() < 10) {
-                    message += "0" + appointmentUpdate.getMinute();
-                }
-                else {
-                    message += appointmentUpdate.getMinute();
-                }
-                message += appointmentUpdate.getAmOrPm() + " on " + appointmentUpdate.getMonth() + "/" +
-                        appointmentUpdate.getDay() + "/" + appointmentUpdate.getYear();
+                // Create a string with the date of the appointment and who it's for
+                String message = "You've selected " + appointmentUpdate.getName() + "'s appointment " +
+                        "on " + appointmentUpdate.getMonth() + "/" + appointmentUpdate.getDay() +
+                        "/" + appointmentUpdate.getYear();
 
                 // Send a toast to the screen indicating which appointment was selected
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();

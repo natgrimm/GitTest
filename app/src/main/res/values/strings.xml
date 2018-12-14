@@ -18,7 +18,7 @@
     <string name="buttonDeny">Deny</string>
     <string name="buttonCreateAppointment">Create Appointment</string>
     <string name="buttonScheduleAppointment">Schedule Appointment</string>
-    <string name="textEnterNameAndNumber">Enter the name, membership and phone numbers of the person for whom you are scheduling for.</string>
+    <string name="textEnterNameAndNumber">Enter the name, membership number and phone number of the person for whom you are scheduling for.</string>
     <string name="month">05</string>
     <string name="day">22</string>
     <string name="year">2018</string>
