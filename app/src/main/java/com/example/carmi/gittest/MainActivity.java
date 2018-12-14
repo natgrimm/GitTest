@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     // The string adapter -> this will handle the data of the listview
     private ArrayAdapter<String> adapter;
     private String memberNumber;
+    private String bishopNumber = "1";
 
     List<Appointment> appointmentList = new ArrayList<Appointment>();
 
@@ -93,14 +94,27 @@ public class MainActivity extends AppCompatActivity {
                     Appointment appointment = child.getValue(Appointment.class);
                     //Add the appointment to appointmentList
                     appointmentList.add(appointment);
-                    //If the memberNumber value is not null
-                    if(appointment.getMemberNumber() != null) {
-                        //Check the memberNumber of each appointment and if it is the same as the user add it to their listView as a string
-                        if(appointment.getMemberNumber().equals(memberNumber)) {
-                            String appointment1 = "Date: " + appointment.getMonth() + "/" + appointment.getDay() + "/" + appointment.getYear() + "\n" +
+                    if(memberNumber.equals(bishopNumber)){
+                        if(appointment.isConfirmed()){
+                            //Put appointment in string format
+                            String appointment1 = "Name: " + appointment.getName() + "       " + "Member #: " + appointment.getMemberNumber() + "\n" + "Phone: " + appointment.getPhoneNumber() + "\n" +
+                                    "Date: " + appointment.getMonth() + "/" + appointment.getDay() + "/" + appointment.getYear() + "      " +
                                     "Time: " + appointment.getHour() + ":" + appointment.getMinute() + appointment.getAmOrPm() + "\n" +
-                                    "Place: " + appointment.getPlace() + "\n" + "Confirmed: " +appointment.isConfirmed() + "\n";
+                                    "Place: " + appointment.getPlace() + "\n";
+                            //Add string to adapter
                             adapter.add(appointment1);
+                        }
+                    }
+                    else{
+                        //If the memberNumber value is not null
+                        if(appointment.getMemberNumber() != null) {
+                            //Check the memberNumber of each appointment and if it is the same as the user add it to their listView as a string
+                            if(appointment.getMemberNumber().equals(memberNumber)) {
+                                String appointment1 = "Date: " + appointment.getMonth() + "/" + appointment.getDay() + "/" + appointment.getYear() + "\n" +
+                                        "Time: " + appointment.getHour() + ":" + appointment.getMinute() + appointment.getAmOrPm() + "\n" +
+                                        "Place: " + appointment.getPlace() + "\n" + "Confirmed: " +appointment.isConfirmed() + "\n";
+                                adapter.add(appointment1);
+                            }
                         }
                     }
                 }

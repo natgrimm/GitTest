@@ -41,6 +41,8 @@ public class CalendarActivity extends AppCompatActivity {
     private List<String> appointments = new ArrayList<>();
     private List<Appointment> appointmentList = new ArrayList<>();
     private List<String> keys = new ArrayList<>();
+    private String keyUpdate;
+    private Appointment appointmentPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,22 +144,13 @@ public class CalendarActivity extends AppCompatActivity {
                 for (Appointment appointmentUpdate : appointmentList) {
                     //Find the appointment that equals the one the user clicked on
                     if (appointmentUpdate.equals(validAppointment)) {
+                        appointmentPass = appointmentUpdate;
                         //Get the index of that appointment
                         int index = appointmentList.indexOf(appointmentUpdate);
                         Log.d("Index", ""+index);
                         //Find the key of the appointment
-                        String key = keys.get(index);
-                        Log.d("Key is", ""+key);
-                        //Make another database reference to update
-                        DatabaseReference updatingRef = database.getReference();
-                        //Set the name, member number, and phonenumber with the values given
-                        appointmentUpdate.setName(name);
-                        appointmentUpdate.setMemberNumber(memberNumber);
-                        appointmentUpdate.setPhoneNumber(number);
-                        //Make the appointment taken
-                        appointmentUpdate.setTaken(true);
-                        //Update the appointment
-                        updatingRef.child("appointmentList").child(key).setValue(appointmentUpdate);
+                        keyUpdate = keys.get(index);
+                        Log.d("Key is", ""+keyUpdate);
                     }
                 }
             }
@@ -171,6 +164,18 @@ public class CalendarActivity extends AppCompatActivity {
      * @param v activity View
      */
     public void onConfirmClick(View v) {
+        //Get the Firebase Database set up with the right instance
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //Make another database reference to update
+        DatabaseReference updatingRef = database.getReference();
+        appointmentPass.setName(name);
+        appointmentPass.setMemberNumber(memberNumber);
+        appointmentPass.setPhoneNumber(number);
+        //Make the appointment taken
+        appointmentPass.setTaken(true);
+        //Update the appointment
+        updatingRef.child("appointmentList").child(keyUpdate).setValue(appointmentPass);
+
         // depending on the user, send them to the appropriate activity after they have confirmed
         // (for the secretary, send him back to the secretary activity, and for the bishop and regular
         // user, send them to the main activity)
