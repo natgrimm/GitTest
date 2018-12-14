@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     // The string adapter -> this will handle the data of the listview
     private ArrayAdapter<String> adapter;
     private String memberNumber;
+    private String bishop = "1";
+    private String secretary = "2";
 
     List<Appointment> appointmentList = new ArrayList<Appointment>();
 
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         // if the memberNumber is the bishop's number, make the Schedule button visible
         scheduleButton = findViewById(R.id.buttonCreateAppointment);
-        if (memberNumber.equals("1")) {
+        if (memberNumber.equals(bishop)) {
             scheduleButton.setVisibility(View.VISIBLE);
         }
 

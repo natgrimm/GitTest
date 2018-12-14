@@ -29,18 +29,22 @@ import java.util.List;
 public class CalendarActivity extends AppCompatActivity {
     public static final String MESSAGE = "membershipNumber";
     private static final String TAG = "CalendarActivity";
+    public static final String MEMBER = "member";
     public static final String NUMBER = "number";
     public static final String NAME = "name";
     private CalendarView myCalendarView;
     private Button confirmButton;
     private ListView myListView;
     private String memberNumber;
+    private String membership;
     private String number;
     private String name;
     private String date;
     private List<String> appointments = new ArrayList<>();
     private List<Appointment> appointmentList = new ArrayList<>();
     private List<String> keys = new ArrayList<>();
+    private String bishop = "1";
+    private String secretary = "2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,17 @@ public class CalendarActivity extends AppCompatActivity {
         memberNumber = intent.getStringExtra(MESSAGE);
         number = intent.getStringExtra(NUMBER);
         name = intent.getStringExtra(NAME);
+
+        // if the current user is the secretary, then we need to pull out the membership number
+        // that he is scheduling the appointment for
+        if (memberNumber.equals(secretary))
+        {
+            membership = intent.getStringExtra(MEMBER);
+        }
+        else
+        {
+            membership = "";
+        }
 
         //Find the calendarView
         myCalendarView = (CalendarView) findViewById(R.id.calendarView);
@@ -120,7 +135,7 @@ public class CalendarActivity extends AppCompatActivity {
 
                 //Iterate through the list of appointments and if it has the same date as the calendar add it to the arrayAdapter
                 for (Appointment p : appointmentList) {
-                    if (p.getDay() == dayOfMonth && p.getMonth() == (month + 1) && p.getYear() == year && p.isTaken() == false) {
+                    if (p.getDay() == dayOfMonth && p.getMonth() == (month + 1) && p.getYear() == year && !p.isTaken()) {
                         String appointmentString = "Date: " + p.getMonth() + "/" + p.getDay() + "/" + p.getYear() + "\n" +
                                 "Time: " + p.getHour() + ":" + p.getMinute() + p.getAmOrPm() + "\n" +
                                 "Place: " + p.getPlace() + "\n";
@@ -152,7 +167,15 @@ public class CalendarActivity extends AppCompatActivity {
                         DatabaseReference updatingRef = database.getReference();
                         //Set the name, member number, and phonenumber with the values given
                         appointmentUpdate.setName(name);
-                        appointmentUpdate.setMemberNumber(memberNumber);
+
+                        // If the secretary is scheduling for someone else, then we need set the memberNumber
+                        // of the appointment to that membership number instead of the current user's number
+                        if (memberNumber.equals(secretary)) {
+                            appointmentUpdate.setMemberNumber(membership);
+                        }
+                        else {
+                            appointmentUpdate.setMemberNumber(memberNumber);
+                        }
                         appointmentUpdate.setPhoneNumber(number);
                         //Make the appointment taken
                         appointmentUpdate.setTaken(true);

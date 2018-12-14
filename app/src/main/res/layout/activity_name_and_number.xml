@@ -15,8 +15,9 @@
         android:ems="10"
         android:hint="@string/textName"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/textPhone2"
+        app:layout_constraintBottom_toTopOf="@+id/textMemberNumber"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -31,8 +32,9 @@
         android:inputType="phone"
         app:layout_constraintBottom_toTopOf="@+id/button5"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textName2" />
+        app:layout_constraintTop_toBottomOf="@+id/textMemberNumber" />
 
     <TextView
         android:id="@+id/textView3"
@@ -44,6 +46,7 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/textName2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,7 +60,22 @@
         android:text="@string/buttonScheduleAppointment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textPhone2"
         tools:text="@string/buttonScheduleAppointment" />
+
+    <EditText
+        android:id="@+id/textMemberNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/textMembershipNumber"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/textPhone2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textName2" />
 </android.support.constraint.ConstraintLayout>

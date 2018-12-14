@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 public class NameAndNumberActivity extends AppCompatActivity {
     public static final String MESSAGE = "membershipNumber";
+    public static final String MEMBER = "member";
     public static final String NUMBER = "number";
     public static final String NAME = "name";
     private String memberNumber;
@@ -25,10 +26,12 @@ public class NameAndNumberActivity extends AppCompatActivity {
         // Pull the information that the user put into the name and phone text-boxes
         EditText name = findViewById(R.id.textName2);
         EditText phone = findViewById(R.id.textPhone2);
+        EditText member = findViewById(R.id.textMemberNumber);
 
         // Change the information into a string that we can use.
         String userName = name.getText().toString();
         String phoneNumber = phone.getText().toString();
+        String membership = member.getText().toString();
 
         // Make sure that the name and number fields were not left empty
         if (userName.isEmpty()) {
@@ -43,11 +46,18 @@ public class NameAndNumberActivity extends AppCompatActivity {
             return;
         }
 
+        if (membership.isEmpty()) {
+            member.setError("membership number cannot be left empty");
+            member.requestFocus();
+            return;
+        }
+
         // Create an intent containing the username and phone number and start the Calendar Activity
         //String intentMessage = userName + " " + phoneNumber;
         Intent intent = new Intent(this, CalendarActivity.class);
         //intent.putExtra(EXTRA_MESSAGE, intentMessage);
         intent.putExtra(MESSAGE, memberNumber);
+        intent.putExtra(MEMBER, membership);
         intent.putExtra(NUMBER, phoneNumber);
         intent.putExtra(NAME, userName);
         startActivity(intent);
