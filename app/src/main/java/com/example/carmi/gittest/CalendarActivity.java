@@ -43,8 +43,8 @@ public class CalendarActivity extends AppCompatActivity {
     private List<String> appointments = new ArrayList<>();
     private List<Appointment> appointmentList = new ArrayList<>();
     private List<String> keys = new ArrayList<>();
-    private String bishop = "1";
-    private String secretary = "2";
+    private String bishopNumber = "1";
+    private String secretaryNumber = "2";
     private String keyUpdate;
     private Appointment appointmentPass;
 
@@ -61,7 +61,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         // if the current user is the secretary, then we need to pull out the membership number
         // that he is scheduling the appointment for
-        if (memberNumber.equals(secretary))
+        if (memberNumber.equals(secretaryNumber))
         {
             membership = intent.getStringExtra(MEMBER);
         }
@@ -170,8 +170,6 @@ public class CalendarActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     /**
@@ -184,7 +182,16 @@ public class CalendarActivity extends AppCompatActivity {
         //Make another database reference to update
         DatabaseReference updatingRef = database.getReference();
         appointmentPass.setName(name);
-        appointmentPass.setMemberNumber(memberNumber);
+
+        // If the secretary is scheduling for someone else, then we need set the memberNumber
+        // of the appointment to that membership number instead of the current user's number
+        if (memberNumber.equals(secretaryNumber)) {
+            appointmentPass.setMemberNumber(membership);
+        }
+        else {
+            appointmentPass.setMemberNumber(memberNumber);
+        }
+
         appointmentPass.setPhoneNumber(number);
         //Make the appointment taken
         appointmentPass.setTaken(true);
@@ -195,7 +202,7 @@ public class CalendarActivity extends AppCompatActivity {
         // (for the secretary, send him back to the secretary activity, and for the bishop and regular
         // user, send them to the main activity)
         Intent intent;
-        if (memberNumber.equals("2"))
+        if (memberNumber.equals(secretaryNumber))
         {
             intent = new Intent(CalendarActivity.this, SecretaryActivity.class);
         }
@@ -208,18 +215,27 @@ public class CalendarActivity extends AppCompatActivity {
 
         // No matter who the user is, set a calendar reminder for them. They can choose to discard
         // this, or save it if they want.
-        int hour = 7;
-        int min = 25;
-        int sec = 0;
+        int year = appointmentPass.getYear();
+        int month = appointmentPass.getMonth();
+        int day = appointmentPass.getDay();
+        int hour = appointmentPass.getHour();
+        int min = appointmentPass.getMinute();
 
         // Declare what the begin time is
         Calendar beginTime = Calendar.getInstance();
-        beginTime.set(2018, 11, 26, hour, min);
+        beginTime.set(year, month, day, hour, min);
         long startMillis = beginTime.getTimeInMillis();
+
+        // if adding five minutes to the "min" variable makes it equal to 60 (we only increment by fives), than
+        // increment the hour and set the minutes back to zero (for the end time)
+        if (min + 5 == 60) {
+            hour++;
+            min = 0;
+        }
 
         // Declare what the end time is
         Calendar endTime = Calendar.getInstance();
-        endTime.set(2018, 11, 26, hour + 1, min);
+        endTime.set(year, month, day, hour, min);
         long endMillis = endTime.getTimeInMillis();
 
         // Start the calendar reminder activity
@@ -229,8 +245,8 @@ public class CalendarActivity extends AppCompatActivity {
                 .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endMillis)
                 .putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, false) // just included for completeness
                 .putExtra(CalendarContract.Events.TITLE, "Appointment Reminder")
-                .putExtra(CalendarContract.Events.DESCRIPTION, "Appointment with a bishopric member.")
-                .putExtra(CalendarContract.Events.EVENT_LOCATION, "Earth")
+                .putExtra(CalendarContract.Events.DESCRIPTION, "Appointment with the bishopric.")
+                .putExtra(CalendarContract.Events.EVENT_LOCATION, appointmentPass.getPlace())
                 .putExtra(CalendarContract.Events.RRULE, "FREQ=DAILY")
                 .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
                 .putExtra(CalendarContract.Events.ACCESS_LEVEL, CalendarContract.Events.ACCESS_PRIVATE);
